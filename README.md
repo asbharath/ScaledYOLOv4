@@ -7,17 +7,9 @@ This is the implementation of "[Scaled-YOLOv4: Scaling Cross Stage Partial Netwo
 ## Installation
 
 ```
-# create the docker container, you can change the share memory size if you have more.
-nvidia-docker run --name yolov4_csp -it -v your_coco_path/:/coco/ -v your_code_path/:/yolo --shm-size=64g nvcr.io/nvidia/pytorch:20.06-py3
+make build 
 
-# install mish-cuda, if you use different pytorch version, you could try https://github.com/JunnYu/mish-cuda
-cd /
-git clone https://github.com/thomasbrandon/mish-cuda
-cd mish-cuda
-python setup.py build install
-
-# go to code folder
-cd /yolo
+make run 
 ```
 
 ## Testing
@@ -62,6 +54,12 @@ If you want to use multiple GPUs for training
 ```
 python -m torch.distributed.launch --nproc_per_node 4 train.py --device 0,1,2,3 --batch-size 64 --data coco.yaml --cfg yolov4-csp.cfg --weights '' --name yolov4-csp --sync-bn
 ```
+
+## Get COCO Images/labels from here 
+```bash
+wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/scripts/get_coco2017.sh
+```
+TBD to verify the labels are correct.
 
 ## Citation
 
